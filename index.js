@@ -13,7 +13,6 @@ const usr = encodeURIComponent(DBUSER)
 const pwd = encodeURIComponent(PASS)
 app.use("/users", userRouter);
 app.use("/todo", todoRouter);
-console.log(usr,pwd)
 mongoose
   .connect(
     `mongodb+srv://${usr}:${pwd}@cluster0.qjxhv.mongodb.net/todoapp?retryWrites=true&w=majority&appName=Cluster0`
