@@ -7,10 +7,10 @@ filter.addWord("bad");
 console.log(filter.clean("This is a bad slang"));
 
 const createTask = async (req, res) => {
-  console.log(req.role);
-  if (req.role !== "admin") {
-    return res.status(400).json({ message: "Unauthorized Access" });
-  }
+  // console.log(req.role);
+  // if (req.role !== "admin") {
+  //   return res.status(400).json({ message: "Unauthorized Access" });
+  // }
   const { task } = req.body;
 
   const newTodo = new todoModel({
