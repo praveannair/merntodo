@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+var cors = require('cors')
 const userRouter = require("./routes/userRoutes");
 const todoRouter = require("./routes/todoRoutes");
 const mongoose = require("mongoose");
@@ -13,6 +14,7 @@ const usr = encodeURIComponent(DBUSER)
 const pwd = encodeURIComponent(PASS)
 app.use("/users", userRouter);
 app.use("/todo", todoRouter);
+app.use(cors())
 mongoose
   .connect(
     `mongodb+srv://${usr}:${pwd}@cluster0.qjxhv.mongodb.net/todoapp?retryWrites=true&w=majority&appName=Cluster0`
