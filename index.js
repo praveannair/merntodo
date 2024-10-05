@@ -7,10 +7,10 @@ app.use(express.json());
 const expressCache = require("cache-express");
 require('dotenv').config();
 const DBUSER = process.env.DBUSER
-const PWD = process.env.PWD
+const PASS = process.env.PASS
 const PORT = process.env.PORT || 8080;
 const usr = encodeURIComponent(DBUSER)
-const pwd = encodeURIComponent(PWD)
+const pwd = encodeURIComponent(PASS)
 app.use("/users", userRouter);
 app.use("/todo", todoRouter);
 console.log(usr,pwd)
