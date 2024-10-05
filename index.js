@@ -9,13 +9,14 @@ require('dotenv').config();
 const DBUSER = process.env.DBUSER
 const PWD = process.env.PWD
 const PORT = process.env.PORT || 8080;
+const usr = encodeURIComponent(DBUSER)
+const pwd = encodeURIComponent(PWD)
 app.use("/users", userRouter);
-
 app.use("/todo", todoRouter);
 
 mongoose
   .connect(
-    `mongodb+srv://${DBUSER}:${PWD}@cluster0.qjxhv.mongodb.net/todoapp?retryWrites=true&w=majority&appName=Cluster0`
+    `mongodb+srv://${usr}:${pwd}@cluster0.qjxhv.mongodb.net/todoapp?retryWrites=true&w=majority&appName=Cluster0`
   )
   // .connect("mongodb://127.0.0.1:27017/todoapp")
   .then(() => {
