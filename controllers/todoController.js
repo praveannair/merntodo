@@ -18,9 +18,9 @@ const createTask = async (req, res) => {
     userId: req.userId,
   });
   try {
-    if (req.role !== "admin") {
-      return res.status(200).json({ message: "Unauthorized Access" });
-    }
+    // if (req.role !== "admin") {
+    //   return res.status(200).json({ message: "Unauthorized Access" });
+    // }
     await newTodo.save();
     res.status(201).json(newTodo);
   } catch (error) {
