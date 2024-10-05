@@ -6,20 +6,21 @@ const mongoose = require("mongoose");
 app.use(express.json());
 const expressCache = require("cache-express");
 require('dotenv').config();
-const dbuser = process.env.DB
-const pwd = process.env.PWD
+const DBUSER = process.env.DBUSER
+const PWD = process.env.PWD
+const PORT = process.env.PORT || 8080;
 app.use("/users", userRouter);
 
 app.use("/todo", todoRouter);
 
 mongoose
   .connect(
-    `mongodb+srv://${dbuser}:${pwd}@cluster0.qjxhv.mongodb.net/todoapp?retryWrites=true&w=majority&appName=Cluster0`
+    `mongodb+srv://${DBUSER}:${PWD}@cluster0.qjxhv.mongodb.net/todoapp?retryWrites=true&w=majority&appName=Cluster0`
   )
   // .connect("mongodb://127.0.0.1:27017/todoapp")
   .then(() => {
-    app.listen(8081, () => {
-      console.log("Server Started");
+    app.listen(PORT, () => {
+      console.log(`Server Started on ${PORT}`);
     });
   })
   .catch((error) => {
