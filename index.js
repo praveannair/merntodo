@@ -3,6 +3,7 @@ const cors = require("cors")
 const app = express();
 const userRouter = require("./routes/userRoutes");
 const todoRouter = require("./routes/todoRoutes");
+const scoreRouter = require("./routes/scoreRoutes");
 const mongoose = require("mongoose");
 app.use(express.json());
 const expressCache = require("cache-express");
@@ -16,12 +17,11 @@ const pwd = encodeURIComponent(PASS)
 app.use(cors())
 app.use("/users", userRouter);
 app.use("/todo", todoRouter);
-
+app.use("/score", scoreRouter);
+const dburi = "mongodb://127.0.0.1:27017/todoapp"
+// const dburi = `mongodb+srv://${usr}:${pwd}@cluster0.qjxhv.mongodb.net/todoapp?retryWrites=true&w=majority&appName=Cluster0`
 mongoose
-  .connect(
-    `mongodb+srv://${usr}:${pwd}@cluster0.qjxhv.mongodb.net/todoapp?retryWrites=true&w=majority&appName=Cluster0`
-  )
-  // .connect("mongodb://127.0.0.1:27017/todoapp")
+  .connect(dburi)
   .then(() => {
     app.listen(PORT, () => {
       console.log(`Server Started on ${PORT}`);

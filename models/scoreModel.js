@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
-const todoSchema = mongoose.Schema(
+const scoreSchema = mongoose.Schema(
   {
-    task: { type: String, required: true },
-    answer:{ type: String, required: true },
+    score: { type: Number, required: true, default: 0 },
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
@@ -12,4 +11,4 @@ const todoSchema = mongoose.Schema(
   },
   { timestamps: true }
 );
-module.exports = mongoose.model("Todo", todoSchema);
+module.exports = mongoose.model("Score", scoreSchema);

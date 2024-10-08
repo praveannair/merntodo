@@ -11,10 +11,11 @@ const createTask = async (req, res) => {
   // if (req.role !== "admin") {
   //   return res.status(400).json({ message: "Unauthorized Access" });
   // }
-  const { task } = req.body;
+  const { task, answer } = req.body;
 
   const newTodo = new todoModel({
     task: task,
+    answer: answer,
     userId: req.userId,
   });
   try {
@@ -58,7 +59,10 @@ const updateTask = async (req, res) => {
 
 const getTasks = async (req, res) => {
   try {
-    const tasks = await todoModel.find({ userId: req.userId });
+    const tasks = await todoModel
+      .find({ userId: req.userId })
+      .sort({ createdAt: -1 })
+      .limit(3);
     res.status(200).json(tasks);
   } catch (error) {
     console.log(error);
@@ -66,4 +70,20 @@ const getTasks = async (req, res) => {
   }
 };
 
-module.exports = { createTask, deleteTask, updateTask, getTasks };
+const getQuestion = async (req, res) => {
+  try {
+    // let qnum = Math.round(Math.random()*100)
+    // $expr: { $lt: [0.5, {$rand: {} } ] }
+    // const tasks = await todoModel.find().skip(qnum).limit(1);
+    const tasks = await todoModel.aggregate([{
+      $sample: { size: 1 },
+    }]);
+
+    res.status(200).json(tasks);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Something went wrong" });
+  }
+};
+
+module.exports = { createTask, deleteTask, updateTask, getTasks, getQuestion };
