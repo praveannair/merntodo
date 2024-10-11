@@ -43,19 +43,18 @@ const getPosition = async (req, res) => {
   try {
     // const position = await scoreModel.find({},{ _id: 0, userId:1,score: 1 }).sort({score:-1});
 
-
-   const position = await  scoreModel.aggregate([
+    const position = await scoreModel.aggregate([
+      { $sort: { score: -1 } },
       {
         $lookup: {
           from: "users",
           localField: "userId",
           foreignField: "_id",
-          pipeline: [{$project:{username:1,email:1,_id:0}}],
+          pipeline: [{ $project: { username: 1, email: 1, _id: 0 } }],
           as: "user",
         },
       },
     ]);
-
 
     res.status(200).json(position);
   } catch (error) {
